@@ -39,6 +39,7 @@
 package lk.ijse.dep.web.util;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.hibernate.cfg.Environment;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManagerFactory;
@@ -62,8 +63,10 @@ public class HibernateUtil2 {
             e.printStackTrace();
         }
 
+        /* TODO: check this one */
+        prop.put(Environment.DATASOURCE,getDataSource());
+
         emf = Persistence.createEntityManagerFactory("dep-6", prop);
-//        em = emf.createEntityManager();
 
         return emf;
     }
@@ -85,6 +88,7 @@ public class HibernateUtil2 {
             bds.setUrl(prop.getProperty("dbcp.connection.url"));
             bds.setUsername(prop.getProperty("dbcp.connection.username"));
             bds.setPassword(prop.getProperty("dbcp.connection.password"));
+
 
             return bds;
         } catch (IOException e) {
