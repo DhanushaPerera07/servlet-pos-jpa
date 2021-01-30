@@ -5,6 +5,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -67,12 +68,9 @@ public class ContextListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-//        BasicDataSource bds = (BasicDataSource) sce.getServletContext().getAttribute("cp");
-//        try {
-//            bds.close();
-//            System.out.println("Connection pool is closed...!");
-//        } catch (SQLException throwables) {
-//            logger.error("Failed to close the connection pool", throwables);
-//        }
+        EntityManagerFactory emf = (EntityManagerFactory) sce.getServletContext().getAttribute("emf");
+        emf.close();
+        logger.info("EntityManagerFactory is closed...!");
+        logger.info("Connection pool is closed...!");
     }
 }
