@@ -1,6 +1,7 @@
 package lk.ijse.dep.web.listener;
 
 import lk.ijse.dep.web.util.HibernateUtil;
+import lk.ijse.dep.web.util.HibernateUtil2;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.slf4j.LoggerFactory;
@@ -32,8 +33,11 @@ public class ContextListener implements ServletContextListener {
         try {
             logger.info("Connection pool is initialized...!");
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-            sce.getServletContext().setAttribute("sf", sessionFactory);
+            EntityManagerFactory entityManagerFactory = HibernateUtil2.getEntityManagerFactory();
+            sce.getServletContext().setAttribute("emf", entityManagerFactory);
+
+//            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+//            sce.getServletContext().setAttribute("sf", sessionFactory);
 
 //            prop.load(this.getClass().getResourceAsStream("/application.properties"));
 //            BasicDataSource bds = new BasicDataSource();
